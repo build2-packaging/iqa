@@ -30,6 +30,13 @@ src_pfx_src     = [dir_path] $src_root/src/
 c.poptions =+ "-I$src_pfx_src" \
               "-I$src_pfx_inc" "-I$src_pfx_inc_unq"
 
+# Upstream puts IQA_INLINE on prototypes in math_utils.h and defines
+# the functions in math_utils.c. That is not valid C99 inline usage
+# and does not cause inlining. Empty the macro (iqa_os.h keeps the
+# default only if we do not define it).
+#
+c.poptions += "-DIQA_INLINE="
+
 if ($c.target.system == 'mingw32')
   c.loptions += -Wl,--export-all-symbols
 

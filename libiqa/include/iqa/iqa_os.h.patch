@@ -1,0 +1,22 @@
+--- iqa_os.h.orig	2026-08-16 14:06:31
++++ iqa_os.h	2026-08-16 14:43:14
+@@ -43,7 +43,9 @@
+ #ifdef WIN32
+ 
+ #include <windows.h>
++#ifndef IQA_INLINE
+ #define IQA_INLINE __inline
++#endif
+ 
+ #ifndef INFINITY
+     #define INFINITY (float)HUGE_VAL /**< Defined in C99 (Windows is C89) */
+@@ -58,7 +60,9 @@
+ 
+ #else /* !Windows */
+ 
++#ifndef IQA_INLINE
+ #define IQA_INLINE inline
++#endif
+ #define IQA_EXPORT
+ 
+ #endif
