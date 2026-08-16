@@ -1,7 +1,8 @@
-# libiqa - A C library
+# libiqa - Image quality assessment C library
 
-This is a `build2` package for the [`<UPSTREAM-NAME>`](https://<UPSTREAM-URL>)
-C library. It provides <SUMMARY-OF-FUNCTIONALITY>.
+This is a `build2` package for the [`iqa`](https://github.com/tjdistler/iqa)
+C library. It implements MSE, PSNR, SSIM, MS-SSIM, and MS-SSIM* metrics
+for 8-bit images.
 
 
 ## Usage
@@ -10,33 +11,19 @@ To start using `libiqa` in your project, add the following `depends`
 value to your `manifest`, adjusting the version constraint as appropriate:
 
 ```
-depends: libiqa ^<VERSION>
+depends: libiqa ^1.1.2
 ```
 
 Then import the library in your `buildfile`:
 
 ```
-import libs = libiqa%lib{<TARGET>}
+import libs = libiqa%lib{iqa}
 ```
 
-
-## Importable targets
-
-This package provides the following importable targets:
-
-```
-lib{<TARGET>}
-```
-
-<DESCRIPTION-OF-IMPORTABLE-TARGETS>
+The canonical public header is `<iqa/iqa.h>`. The unqualified form
+`<iqa.h>` is also accepted (via `pkg-config` include paths).
 
 
 ## Configuration variables
 
-This package provides the following configuration variables:
-
-```
-[bool] config.libiqa.<VARIABLE> ?= false
-```
-
-<DESCRIPTION-OF-CONFIG-VARIABLES>
+This package has no configuration variables.
