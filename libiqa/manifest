@@ -2,15 +2,17 @@
 name: libiqa
 version: 1.1.2-a.0.z
 language: c
-project: build2-iqa
-summary: iqa C library
-license: other: proprietary ; Not free/open source.
+project: iqa
+summary: Image quality assessment C library
+license: BSD-3-Clause
 description-file: README.txt
 package-description-file: PACKAGE-README.md
 changes-file: CHANGELOG.txt
-url: https://example.org/upstream
-email: upstream@example.org
-package-url: https://github.com/build2-packaging/build2-iqa
-package-email: packaging@build2.org ; Mailing list.
+url: https://github.com/tjdistler/iqa
+doc-url: http://tdistler.com/iqa
+src-url: https://github.com/tjdistler/iqa
+package-url: https://github.com/build2-packaging/iqa
+package-email: packaging@build2.org
+topics: image quality, ssim, psnr, mse
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
