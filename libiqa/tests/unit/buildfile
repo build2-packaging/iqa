@@ -1,0 +1,23 @@
+import libs = libiqa%liba{iqa}
+
+exe{test}: {h c}{**} ../include/h{**} $libs testscript
+exe{test}: fsdir{resources}: include = adhoc
+
+fsdir{resources}:
+% update
+{{
+  ln -s $src_base/resources $out_base/
+}}
+% clean
+{{
+  rm -f $out_base/resources
+}}
+
+# test headers plus symlinks to private library headers.
+# IQA_INLINE empty to circumvent upstream incorrect
+# inline decorators.
+#
+c.poptions =+ "-I$src_root/include" "-DIQA_INLINE="
+
+if ($c.target.class == 'linux')
+  c.libs += -lrt

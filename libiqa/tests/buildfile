@@ -1,1 +1,10 @@
-./: {*/ -build/}
+./: {*/ -build/ -include/}
+
+# Private unit-test headers live in this scope, not unit/.
+#
+include/file{*}: dist = false
+
+# Keep the fixtures and sources out of the published
+# archive (requires large binaries).
+#
+unit/file{*}: dist = false

@@ -1,0 +1,1 @@
+env -c $out_base/resources -- $* >! == 0
