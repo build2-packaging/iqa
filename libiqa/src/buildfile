@@ -1,6 +1,5 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
 
 # Public headers.
 #
@@ -21,24 +20,33 @@ def{iqa}: libul{iqa}
 
 # Build options.
 #
-out_pfx_inc = [dir_path] $out_root/include/
-src_pfx_inc = [dir_path] $src_root/include/
-out_pfx_src = [dir_path] $out_root/src/
-src_pfx_src = [dir_path] $src_root/src/
+# include/iqa/ unqualified -I are only for this library's TUs
+# (upstream writes #include "iqa.h" and #include "convolve.h").
+#
+src_pfx_inc     = [dir_path] $src_root/include/
+src_pfx_inc_unq = [dir_path] $src_root/include/iqa/
+src_pfx_src     = [dir_path] $src_root/src/
 
-c.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-              "-I$out_pfx_inc" "-I$src_pfx_inc"
+c.poptions =+ "-I$src_pfx_src" \
+              "-I$src_pfx_inc" "-I$src_pfx_inc_unq"
 
 if ($c.target.system == 'mingw32')
   c.loptions += -Wl,--export-all-symbols
 
 # Export options.
 #
+# Dual inclusion: <iqa/iqa.h> (canonical) and <iqa.h> (upstream style).
+#
 lib{iqa}:
 {
-  c.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  c.export.poptions = "-I$src_pfx_inc" "-I$src_pfx_inc_unq"
   c.export.libs = $intf_libs
 }
+
+lib{iqa}: c.pkgconfig.include = include/ include/iqa/
+
+if ($c.target.class != 'windows')
+  lib{iqa}: c.libs += -lm
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
